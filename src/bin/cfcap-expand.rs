@@ -162,6 +162,22 @@ fn write_packet(path: PathBuf, data: &[u8], index: &mut usize, direction: &str) 
             fs::write(path.to_str().unwrap(), buf.into_inner()).unwrap();
         }
 
+        path.pop();
+        path.push("source_actor.bin");
+        fs::write(
+            path.to_str().unwrap(),
+            packet.header.src_entity.to_le_bytes(),
+        )
+        .unwrap();
+
+        path.pop();
+        path.push("target_actor.bin");
+        fs::write(
+            path.to_str().unwrap(),
+            packet.header.dst_entity.to_le_bytes(),
+        )
+        .unwrap();
+
         *index += 1;
     }
 }
