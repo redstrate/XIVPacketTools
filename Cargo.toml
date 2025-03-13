@@ -1,0 +1,14 @@
+[package]
+name = "XIVPacketTools"
+version = "0.1.0"
+edition = "2024"
+
+[build-dependencies]
+prost-build = "0.13"
+
+[dependencies]
+zip = "2.2"
+prost = "0.13"
+prost-types = "0.13"
+zstd = "0.13"
+binrw = "0.14"
