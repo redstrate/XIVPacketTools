@@ -34,6 +34,33 @@ Notes:
 * `data.bin` is the data of the segment with the headers stripped out.
 * `ipc opcode` is in hexadecimal format.
 
+#### Translating IPC opcodes
+
+To associate IPC opcodes with a well defined name, place an `opcodes.json` in the same directory where you run `cfcap-expand`. It should be in the following format:
+
+```json
+{
+    "ServerZoneIpcType": [
+        {
+          "name": "WellDefinedOpcode",
+          "opcode": 258
+        }
+    ],
+    "ClientZoneIpcType": [
+        {
+          "name": "AnotherWellDefinedOpcode",
+          "opcode": 250
+        }
+    ],
+    "ServerLobbyIpcType": [],
+    "ClientLobbyIpcType": [],
+    "ServerChatIpcType": [],
+    "ServerChatIpcType": [],
+}
+```
+
+Segments already have well-defined names, so it's not possible to change those at the moment. Opcodes should be written in decimal. This format is intentionally similiar to the one used in [FFXIVOpcodes](https://github.com/karashiiro/FFXIVOpcodes/), so it's easier to move opcodes between.
+
 ## License
 
 ![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)
