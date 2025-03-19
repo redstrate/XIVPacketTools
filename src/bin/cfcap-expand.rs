@@ -134,7 +134,7 @@ fn write_packet(
     let mut cursor = Cursor::new(data);
 
     let header = Frame::read_le(&mut cursor).unwrap();
-    for packet in &header.packets {
+    for (i, packet) in header.packets.iter().enumerate() {
         let mut path = path.clone();
 
         if let Some(ipc_header) = &packet.ipc_header {
@@ -145,27 +145,30 @@ fn write_packet(
                 .collect();
             if matched_opcodes.len() == 1 {
                 path.push(format!(
-                    "{}-{}-{} (to {})",
+                    "{}-{}-{} (to {}) ({})",
                     index,
                     packet.header.packet_type.to_string(),
                     matched_opcodes[0].name,
-                    direction
+                    direction,
+                    i
                 ));
             } else {
                 path.push(format!(
-                    "{}-{}-{:#02X} (to {})",
+                    "{}-{}-{:#02X} (to {}) ({})",
                     index,
                     packet.header.packet_type.to_string(),
                     ipc_header.opcode,
-                    direction
+                    direction,
+                    i
                 ));
             }
         } else {
             path.push(format!(
-                "{}-{} (to {})",
+                "{}-{} (to {}) ({})",
                 index,
                 packet.header.packet_type.to_string(),
-                direction
+                direction,
+                i
             ));
         }
 
