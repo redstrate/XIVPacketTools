@@ -25,6 +25,8 @@ jobs:
           ~/.cargo/git/db/
           target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v3
     - name: Build
       run: cargo build --verbose
     - name: Run clippy
