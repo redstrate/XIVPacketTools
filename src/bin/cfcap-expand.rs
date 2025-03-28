@@ -154,7 +154,7 @@ fn write_packet(
                 ));
             } else {
                 path.push(format!(
-                    "{}-{}-{:#02X} (to {}) ({})",
+                    "{}-{}-{} (to {}) ({})",
                     index,
                     packet.header.packet_type.to_string(),
                     ipc_header.opcode,
