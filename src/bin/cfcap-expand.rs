@@ -152,6 +152,15 @@ fn write_packet(
                     direction,
                     i
                 ));
+
+                if matched_opcodes[0].size != packet.header.size - 16 - 16 {
+                    println!(
+                        "Packet size mismatch at {}! It should be {}, not {}!",
+                        path.to_str().unwrap(),
+                        packet.header.size - 16 - 16,
+                        matched_opcodes[0].size
+                    );
+                }
             } else {
                 path.push(format!(
                     "{}-{}-{} (to {}) ({})",
@@ -270,6 +279,7 @@ fn read_data_entry<B: prost::bytes::Buf>(
 struct KnownOpCode {
     name: String,
     opcode: i32,
+    size: u32,
 }
 
 #[derive(Deserialize, Default, Debug)]
