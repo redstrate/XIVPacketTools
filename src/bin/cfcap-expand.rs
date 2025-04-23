@@ -162,6 +162,14 @@ fn write_packet(
                     );
                 }
             } else {
+                // try to guess unknown IPC codes by their size
+                for known_ipcode in opcode_list {
+                    if known_ipcode.size == packet.header.size - 16 - 16 {
+                        println!("{} ({direction}) may be {}, based on the size.", ipc_header.opcode, known_ipcode.name);
+                        break;
+                    }
+                }
+
                 path.push(format!(
                     "{}-{}-{} (to {}) ({})",
                     index,
