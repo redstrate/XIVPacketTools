@@ -1,6 +1,6 @@
+use XIVPacketTools::{KnownOpCode, KnownOpCodes};
 use binrw::{BinRead, BinWrite, binread, binrw};
 use prost::Message;
-use serde::Deserialize;
 use std::env::current_exe;
 use std::path::PathBuf;
 use std::{
@@ -165,7 +165,10 @@ fn write_packet(
                 // try to guess unknown IPC codes by their size
                 for known_ipcode in opcode_list {
                     if known_ipcode.size == packet.header.size - 16 - 16 {
-                        println!("{} ({direction}) may be {}, based on the size.", ipc_header.opcode, known_ipcode.name);
+                        println!(
+                            "{} ({direction}) may be {}, based on the size.",
+                            ipc_header.opcode, known_ipcode.name
+                        );
                         break;
                     }
                 }
@@ -281,31 +284,6 @@ fn read_data_entry<B: prost::bytes::Buf>(
             opcode_list,
         );
     }
-}
-
-#[derive(Deserialize, Debug)]
-struct KnownOpCode {
-    name: String,
-    opcode: i32,
-    size: u32,
-}
-
-#[derive(Deserialize, Default, Debug)]
-struct KnownOpCodes {
-    #[serde(default, rename = "ServerZoneIpcType")]
-    server_zone_ipc_type: Vec<KnownOpCode>,
-    #[serde(default, rename = "ClientZoneIpcType")]
-    client_zone_ipc_type: Vec<KnownOpCode>,
-
-    #[serde(default, rename = "ServerLobbyIpcType")]
-    server_lobby_ipc_type: Vec<KnownOpCode>,
-    #[serde(default, rename = "ClientLobbyIpcType")]
-    client_lobby_ipc_type: Vec<KnownOpCode>,
-
-    #[serde(default, rename = "ServerChatIpcType")]
-    server_chat_ipc_type: Vec<KnownOpCode>,
-    #[serde(default, rename = "ClientChatIpcType")]
-    client_chat_ipc_type: Vec<KnownOpCode>,
 }
 
 fn main() {

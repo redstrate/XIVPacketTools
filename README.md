@@ -61,6 +61,18 @@ To associate IPC opcodes with a well defined name, place an `opcodes.json` in th
 
 Segments already have well-defined names, so it's not possible to change those at the moment. Opcodes should be written in decimal. This format is intentionally similiar to the one used in [FFXIVOpcodes](https://github.com/karashiiro/FFXIVOpcodes/), so it's easier to move opcodes between.
 
+## opcode-update
+
+Updates a list of opcodes based on the an opcode diff from [opcodediff](https://github.com/xivdev/opcodediff). Note that the output isn't 100% correct, due to the nature of the process. This tool will try not to overwrite the same opcode twice.
+
+Run using `cargo run`, giving it the path to the `.diff.json` file and the `opcodes.json`:
+
+```shell
+$ cargo run --bin opcode-update 7.21.diff.json opcodes.json
+```
+
+The file passed as the second argument will be modified in-place.
+
 ## License
 
 ![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)
