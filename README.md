@@ -32,7 +32,7 @@ Notes:
 * `<index>` is indexed *across every connection*, so it will usually start in Lobby and ends in Zone.
 * `ipc_header.bin` is the IPC segment header data, if applicable.
 * `data.bin` is the data of the segment with the headers stripped out.
-* `ipc opcode` is in hexadecimal format.
+* `ipc opcode` is in decimal format.
 
 #### Translating IPC opcodes
 
